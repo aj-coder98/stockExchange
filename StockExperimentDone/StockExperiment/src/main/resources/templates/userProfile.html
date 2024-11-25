@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Page</title>
+    <style>
+		body {
+		    font-family: 'Roboto', sans-serif;
+		    background-color: #f4f4f4;
+		    color: #333;
+		    margin: 0;
+		    padding: 0;
+		    box-sizing: border-box;
+		}
+		
+		header {
+		    position: fixed;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    padding: 10px 20px;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    z-index: 1000;
+		    background: #004d40; /* Dark teal background */
+		    color: #fff;
+		    /* padding: 2rem; */
+		}
+		
+		header h1 {
+		    margin: 0;
+		    font-size: 1.5em;
+		}
+		
+		header nav ul {
+		    list-style-type: none;
+		    padding: 0;
+		    margin: 0;
+		    display: flex;
+		}
+		
+		header nav {
+		    display: flex;
+		    align-items: center;
+		    padding-right: 50px; /*Add space between the buttons and the right edge */
+		}
+		
+		header nav ul li {
+		    margin-left: 20px; /* Space between buttons */
+		}
+		
+		header nav ul li a {
+		    color: white;
+		    text-decoration: none;
+		    font-size: 1em;
+		    padding: 5px 10px;
+		}
+		
+		.nav-bar {
+		    position: relative;
+		    display: flex;
+		    justify-content: center;
+		    gap: 1rem;
+		}
+		
+		.nav-button {
+		    background: #00796b; /* Teal button */
+		    flex: auto;
+		    border: none;
+		    color: #fff;
+		    padding: 0.5rem 1rem;
+		    border-radius: 8px;
+		    cursor: pointer;
+		    transition: background 0.3s ease, transform 0.2s ease;
+		    margin-right: 2px;
+		}
+		
+		.nav-button:hover {
+		    background: #004d40; /* Darker teal on hover */
+		    transform: scale(1.05);
+		}
+		
+		.container {
+		    display: grid;
+		    grid-template-columns: 1fr 2fr;
+		    gap: 1rem;
+		    width: 100%;
+		    max-width: 1200px;
+		    height: calc(100vh - 60px); /* Adjust height to account for header */
+		    margin-top: 60px; /* Space for header */
+		    background: #fff;
+		    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+		}
+		
+		aside.profile {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    background-color: #fafafa;
+		    padding: 2rem;
+		    border-right: 1px solid #ddd;
+		}
+		
+		.image-container {
+		    position: relative;
+		    display: inline-block;
+		}
+		
+		.profile-pic {
+		    width: 150px;
+		    height: 150px;
+		    margin-left: 60px;
+		    border-radius: 50%;
+		    object-fit: cover;
+		    margin-bottom: 1rem;
+		}
+		
+		.profile-info {
+		    text-align: center;
+		}
+		
+		main.content {
+		    padding: 2rem;
+		    overflow-y: auto;
+		}
+		
+		section {
+		    background: #fff;
+		    padding: 1.5rem;
+		    border-radius: 8px;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		    margin-bottom: 2rem;
+		}
+		
+		h2 {
+		    border-bottom: 2px solid #333;
+		    padding-bottom: 0.5rem;
+		    margin-bottom: 1rem;
+		    font-size: 1.5rem;
+		}
+		
+		.summary-card {
+		    background: #eaf1f5;
+		    padding: 1rem;
+		    border-radius: 8px;
+		    margin-bottom: 1rem;
+		}
+		
+		.summary-card h3 {
+		    margin: 0;
+		    font-size: 1.2rem;
+		}
+		
+		.summary-card p {
+		    margin: 0.5rem 0;
+		    font-size: 1.5rem;
+		}
+		
+		.gain {
+		    color: #4CAF50;
+		}
+		
+		.stock-list {
+		    display: flex;
+		    flex-direction: column;
+		    gap: 1rem;
+		}
+		
+		.stock-card {
+		    background: #fff;
+		    padding: 1rem;
+		    border-radius: 8px;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+		}
+		
+		.stock-header {
+		    display: flex;
+		    align-items: center;
+		    gap: 1rem;
+		}
+		
+		.stock-logo {
+		    width: 50px;
+		    height: auto;
+		}
+		
+		.stock-details {
+		    flex: 1;
+		}
+		
+		.stock-chart {
+		    margin-top: 1rem;
+		}
+		
+		ul {
+		    list-style: none;
+		    padding: 0;
+		}
+		
+		ul li {
+		    padding: 0.5rem 0;
+		    border-bottom: 1px solid #ddd;
+		    transition: background 0.3s ease;
+		}
+		
+		ul li:hover {
+		    background: #f0f0f0;
+		    cursor: pointer;
+		}
+		
+		@media (max-width: 768px) {
+		    .container {
+		        grid-template-columns: 1fr;
+		        height: auto;
+		        margin-top: 0;
+		    }
+		
+		    aside.profile {
+		        border-right: none;
+		        border-bottom: 1px solid #ddd;
+		    }
+		
+		    main.content {
+		        width: 100%;
+		    }
+		}
+		
+		
+		/* Styling for edit button */
+		
+		/* Basic styling for the name container */
+		.name-container {
+		    position: relative;
+		    display: inline-flex;
+		    align-items: center;
+		}
+		
+		/* Style for the name display */
+		.name-display {
+		    /* font-size: 1.5em; */
+		    margin-right: 10px;
+		}
+		
+		/* Style for the edit button */
+		.edit-button {
+		    background-color: transparent;
+		    color: #4CAF50;
+		    border: none;
+		    font-size: 1.2em; /* Adjust the size of the icon */
+		    cursor: pointer;
+		    padding: 0;
+		    margin-left: 5px;
+		}
+		
+		.edit-button:hover {
+		    color: #c5d6c9;
+		}
+		
+		/* Hide the edit form initially */
+		.edit-form {
+		    display: none;
+		    margin-left: 10px;
+		}
+		
+		.edit-form input {
+		    padding: 5px;
+		    font-size: 1em;
+		}
+		
+		.edit-form button {
+		    background-color: #28a745;
+		    color: white;
+		    border: none;
+		    border-radius: 5px;
+		    padding: 5px 10px;
+		    cursor: pointer;
+		}
+		
+		.edit-form button:hover {
+		    background-color: #218838;
+		}
+		
+		/* Code for styling the profile picture */
+		
+		/* Basic styling for the image container */
+		.image-container {
+		    position: relative;
+		    display: inline-block;
+		}
+		
+		/* Style for the profile image */
+		#profileImage {
+		    width: 150px; /* Adjust as needed */
+		    height: 150px; /* Adjust as needed */
+		    border-radius: 50%; /* Makes the image circular */
+		    object-fit: cover; /* Ensures the image covers the area */
+		}
+		
+		/* Style for the edit button */
+		.image-button {
+		    background-color: transparent;
+		    color: #4CAF50;
+		    border: none;
+		    font-size: 1.2em; /* Adjust the size of the icon */
+		    cursor: pointer;
+		    padding: 0;
+		    margin-left: 5px;
+		}
+		
+		.image-button:hover {
+		    color: #c5d6c9;
+		}
+		
+		/* Hide the file input initially */
+		#fileInput {
+		    display: none;
+		}
+		
+		/* Basic styling for the profile container */
+		.profile-container {
+		    width: 300px; /* Adjust as needed */
+		    margin: 0 auto;
+		}
+		
+		/* Styling for the image container */
+		.image-container {
+		    position: relative;
+		    display: inline-block;
+		    margin-bottom: 20px;
+		}
+		
+		/* Style for the profile image */
+		#profileImage {
+		    width: 150px;
+		    height: 150px;
+		    border-radius: 50%;
+		    object-fit: cover;
+		}
+		
+		/* Style for the image button */
+		
+		/* Hide the file input initially */
+		#fileInput {
+		    display: none;
+		}
+		
+		/* Styling for the profile details */
+		.profile-details {
+		    margin-bottom: 20px;
+		}
+		
+		.detail {
+		    margin-bottom: 20px;
+		    position: relative;
+		}
+		
+		.detail label {
+		    font-weight: bold;
+		    display: block;
+		}
+		
+		.detail span {
+		    display: block;
+		    margin-bottom: 5px;
+		}
+		
+		.edit-icon {
+		    background-color: transparent;
+		    color: #4CAF50;
+		    border: none;
+		    font-size: 1.2em; /* Adjust the size of the icon */
+		    cursor: pointer;
+		    padding: 0;
+		    margin-left: 5px;
+		}
+		
+		.edit-icon:hover {
+		    color: #c5d6c9;
+		}
+		
+		/* Styling for the edit forms */
+		.edit-form {
+		    display: none;
+		    margin-top: 10px;
+		}
+		
+		.edit-form input {
+		    width: 100%;
+		    padding: 8px;
+		    border: 1px solid #ccc;
+		    border-radius: 4px;
+		    margin-bottom: 10px;
+		}
+		
+		.save-button, .cancel-button {
+		    background-color: transparent;
+		    color: white;
+		    border: none;
+		    padding: 5px 10px;
+		    cursor: pointer;
+		    border-radius: 5px;
+		    font-size: 0.9em;
+		    margin-right: 5px;
+		}
+		
+		.save-button:hover {
+		    background-color: #0056b3;
+		}
+		
+		.cancel-button {
+		    background-color: #6c757d;
+		}
+		
+		.cancel-button:hover {
+		    background-color: #5a6268;
+		}
+		
+		.group-icon {
+		    display: flex; /* Use Flexbox for alignment */
+		    align-items: center; /* Align items vertically centered */
+		    gap: 8px; /* Space between the elements */
+		}
+		
+		table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    border: 2px solid #000; /* Border around the table */
+		}
+		th, td {
+		    border: 1px solid #dddddd; /* Border for table cells */
+		    text-align: center; /* Center text in cells */
+		    padding: 8px;
+		}
+		th {
+		    background-color: #f2f2f2;
+		}
+
+		/* Footer styling */
+		footer {
+		    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+		    color: white;
+		    padding: 1rem;
+		    text-align: center;
+		}
+		
+		header {
+		    background: linear-gradient(to right, #003366, #0d0f12); /* Dark gradient for header */
+		    color: #ffffff; /* Light text on dark gradient */
+		    padding: 20px 0;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		header .container-navbar {
+		    width: 80%; /* Adjust width for alignment */
+		    margin: 0 auto;
+		    display: flex;
+		    align-items: left;
+		    justify-content: space-between; /* Distribute space between elements */
+		    text-align: left; /* Align text to the left */
+		}
+		
+		.logo-navbar {
+		    height: 60px;
+			margin-left: 30px;
+		    margin-right: 20px; /* Space between logo and heading */
+		}
+		
+		.heading-navbar {
+		    font-size: 2.5em;
+		    margin: 0;
+		    color: #ffffff; /* White color for header name */
+			flex: 1;
+		}
+		
+		/* Header right section */
+		.header-right-navbar {
+		    display: flex;
+		    align-items: center;
+			margin-right: 30px; /* Space from the right edge */
+			position: relative;
+			left: 90px;
+		}
+		
+		.header-left-navbar {
+			cursor: pointer;
+		    display: flex;
+		    align-items: center;
+			position: relative;
+			left: -90px;
+		}
+		
+		.welcome-message-navbar {
+		    margin-right: 20px;
+		    font-size: 1.2em;
+		}
+		
+		.transparent-button-navbar {
+		    background: transparent;
+		    border: 1px solid #ffffff;
+		    color: #ffffff;
+		    padding: 10px 20px;
+		    margin-left: 10px;
+		    cursor: pointer;
+		    font-size: 1em;
+		    border-radius: 5px;
+		}
+		
+		.transparent-button-navbar:hover {
+		    background: rgba(255, 255, 255, 0.2);
+		}
+
+    </style>
+</head>
+<body>
+<!--			<header>
+	            <h1>User U1</h1>
+	            <nav class="nav-bar">
+	                <ul>
+	                    <li class="nav-button" onclick="scrollToSection('portfolioSummary')">Portfolio Summary</li>
+	                    <li class="nav-button" onclick="scrollToSection('myStocks')">My Stocks</li>
+	                    <li class="nav-button" onclick="scrollToSection('trendingStocks')">Trending Stocks</li>
+	                    <li class="nav-button right-space" onclick="scrollToSection('recentTransactions')">Recent Transactions</li>
+	                </ul>
+	            </nav>
+	        </header>-->
+			<header>
+				<div class="container-navbar">
+					<div class="header-left-navbar" th:onClick="openDashboard([[${user.userId}]])">
+					    <img src="/logo.png" alt="Stock Exchange Logo" class="logo-navbar">
+					    <h1 class="heading-navbar">Dalal Bazaar</h1>
+					</div>
+					<div class="header-right-navbar">
+				        <span class="welcome-message-navbar">Hello, <span id="username-navbar" th:text="${user.username} + '!'">User</span></span>
+				        <button class="transparent-button-navbar" th:onclick="logout()" id="logoutButton-navbar">Logout</button>
+				    </div>
+				</div>
+			</header>
+			<div class="container">
+				       <aside class="profile">
+				            <div class="image-container">
+				                <img id="profileImage" src="logo.png" alt="Profile Image">
+				                <button class="image-button" id="imageButton">✎</button>
+				                <input type="file" id="fileInput" accept="image/*">
+				            </div>
+							
+				            <!-- Profile Details Section -->
+				            <div class="profile-details">
+				                <div class="detail">
+				                    <label for="username">Username:</label>
+									<div class="group-icon">
+				                    <span id="usernameDisplay" th:text="${user.username}">john_doe</span>
+				                    <span class="edit-icon" id="editUsernameIcon">✎</span>
+									</div>
+				                    <div class="edit-form" id="editUsernameForm" style="display: none;">
+				                        <input type="text" id="usernameInput" 
+										pattern="^[A-Za-z0-9]+([._-][A-Za-z0-9]+)*$">
+				                        <button class="save-button" id="saveUsernameButton" th:onCLick="saveUsername([[${userId}]])">Save</button>
+				                        <button class="cancel-button" id="cancelUsernameButton">Cancel</button>
+				                    </div>
+				                </div>
+								<div class="detail">
+								    <label for="firstname">First Name:</label>
+								    <div class="group-icon">
+								        <span id="firstnameDisplay" th:text="${user.firstName}">John</span>
+								        <span class="edit-icon" id="editFirstnameIcon">✎</span>
+								    </div>
+								    <div class="edit-form" id="editFirstnameForm" style="display: none;">
+								        <input type="text" id="firstnameInput"
+										pattern="[A-Za-z]">
+								        <button class="save-button" id="saveFirstnameButton" th:onCLick="saveFirstname([[${userId}]])">Save</button>
+								        <button class="cancel-button" id="cancelFirstnameButton">Cancel</button>
+								    </div>
+								</div>
+								
+								<div class="detail">
+								    <label for="lastname">Last Name:</label>
+								    <div class="group-icon">
+								        <span id="lastnameDisplay" th:text="${user.lastName}">Doe</span>
+								        <span class="edit-icon" id="editLastnameIcon">✎</span>
+								    </div>
+								    <div class="edit-form" id="editLastnameForm" style="display: none;">
+								        <input type="text" id="lastnameInput"
+										pattern="[A-Za-z]">
+								        <button class="save-button" id="saveLastnameButton" th:onCLick="saveLastname([[${userId}]])">Save</button>
+								        <button class="cancel-button" id="cancelLastnameButton">Cancel</button>
+								    </div>
+								</div>
+								
+								<div class="detail">
+								    <label for="phone">Phone:</label>
+								    <div class="group-icon">
+								        <span id="phoneDisplay" th:text="${user.phone}">1234567890</span>
+								        <span class="edit-icon" id="editPhoneIcon">✎</span>
+								    </div>
+								    <div class="edit-form" id="editPhoneForm" style="display: none;">
+								        <input type="text" id="phoneInput"
+										pattern="\d{10}">
+								        <button class="save-button" id="savePhoneButton" th:onCLick="savePhone([[${userId}]])">Save</button>
+								        <button class="cancel-button" id="cancelPhoneButton">Cancel</button>
+								    </div>
+								</div>
+								
+								<div class="detail">
+								    <label for="email">Email:</label>
+								    <div class="group-icon">
+								        <span id="emailDisplay" th:text="${user.email}">john.doe@example.com</span>
+								        <span class="edit-icon" id="editEmailIcon">✎</span>
+								    </div>
+								    <div class="edit-form" id="editEmailForm" style="display: none;">
+								        <input type="text" id="emailInput"
+										pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
+								        <button class="save-button" id="saveEmailButton" th:onCLick="saveEmail([[${userId}]])">Save</button>
+								        <button class="cancel-button" id="cancelEmailButton">Cancel</button>
+								    </div>
+								</div>
+								
+								<div class="detail">
+								    <label for="pan">Pan Number:</label>
+								    <div class="group-icon">
+								        <span id="emailDisplay" th:text="${user.pan}">ABCDE1234F</span>
+								    </div>
+								</div>
+				        </div>
+					</aside>
+	        <main class="content">
+	            <section id="portfolioSummary" class="portfolio-summary">
+	                <h2>Portfolio Summary</h2>
+	                <div class="summary-card">
+	                    <h3>Total Invested Value</h3>
+	                    <p th:text="'$' + ${totalInvestedValue}">$15,000</p>
+	                </div>
+	                <div class="summary-card">
+	                    <h3>Total Current Value</h3>
+	                    <p th:text="'$' + ${totalCurrentValue}"></p>
+	                </div>
+	            </section>
+	            <section id="myStocks" class="user-stocks">
+	                <h2>My Stocks</h2>
+					<div class="transaction-chart">
+						<table>
+					        <thead>
+					            <tr>
+					                <th>Stock Name</th>
+					                <th>Quantity</th>
+					                <th>Average Invested Value</th>
+									<th>Invested Value</th>
+									<th>Current Value</th>						
+					            </tr>
+					        </thead>
+					        <tbody id="transactionTableBody">
+								<tr th:each="userList : ${userDashboardList}">
+					                <td th:text="${userList.stockName}"></td>
+									<td th:text="${userList.quantity}"></td>
+									<td th:text="${userList.avgInvValue}"></td>
+									<td th:text="${userList.invValue}"></td>
+									<td th:text="${userList.curValue}"></td>	
+					            </tr>
+					        </tbody>
+						    </table>
+	                </div>
+	            </section>
+	            
+	            <section id="recentTransactions" class="recent-transactions">
+	                <h2>Recent Transactions</h2>
+					<div class="transaction-chart">
+						<table>
+					        <thead>
+					            <tr>
+					                <th>Time</th>
+					                <th>Stock Name</th>
+					                <th>Total Shares</th>
+					                <th>Buy / Sell</th>
+					            </tr>
+					        </thead>
+					        <tbody id="transactionTableBody">
+								<tr th:each="transaction : ${transactions}">
+					                <td th:text="${transaction.time}"></td>
+					                <td th:text="${transaction.stockName}"></td>
+					                <td th:text="${transaction.totalShares}"></td>
+					                <td th:text="${transaction.isBuy ? 'Buy' : 'Sell'}"></td>
+					            </tr>
+					        </tbody>
+						    </table>
+							</div>
+	            </section>
+				
+				<section id="trendingStocks" class="trending-stocks">
+					<h2>Pending Transactions</h2>
+					<div class="transaction-chart">
+						<table>
+					        <thead>
+					            <tr>
+					                <th>Stock Name</th>
+					                <th>Pending Shares</th>
+					                <th>Buy / Sell</th>
+					            </tr>
+					        </thead>
+					        <tbody id="transactionTableBody">
+								<tr th:each="transaction : ${pendingTransactionsList}">
+					                <td th:text="${transaction.stockName}"></td>
+					                <td th:text="${transaction.pending}"></td>
+					                <td th:text="${transaction.isBuy ? 'Buy' : 'Sell'}"></td>
+					            </tr>
+					        </tbody>
+						    </table>
+							</div>
+	            </section>
+	        </main>
+	    </div>
+		
+	    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+		<script>
+			function openProfile(userId) {
+				window.location.href = `/userProfile?userId=${userId}`;
+	        }
+			
+			function logout() {
+				window.location.href = `/logout`;
+	        }
+			
+			function openDashboard(userId) {
+				window.location.href = `/dashboard?userId=${userId}`;
+			}
+			
+			function savePhone(userId) {
+				var phone = encodeURIComponent(document.getElementById('phoneInput').value);
+				window.location.href = `/savePhone?userId=${userId}&phone=${phone}`;
+			}
+			function saveUsername(userId) {
+	            var username = encodeURIComponent(document.getElementById('usernameInput').value);
+	        }
+	
+	        function saveFirstname(userId) {
+	            var firstname = encodeURIComponent(document.getElementById('firstnameInput').value);
+	            
+	        }
+	
+	        function saveLastname(userId) {
+	            var lastname = encodeURIComponent(document.getElementById('lastnameInput').value);
+	            window.location.href = `/saveLastname?userId=${userId}&lastname=${lastname}`;
+	        }
+	
+	        function saveEmail(userId) {
+	            var email = encodeURIComponent(document.getElementById('emailInput').value);
+	            window.location.href = `/saveEmail?userId=${userId}&email=${email}`;
+	        }
+			
+			function scrollToSection(id) {
+			    const section = document.getElementById(id);
+			    if (section) {
+			        section.scrollIntoView({ behavior: 'smooth' });
+			    }
+			}
+			 
+			document.addEventListener('DOMContentLoaded', () => {
+			    // Example of adding a chart with Chart.js
+			    const ctxApple = document.getElementById('stockChartApple').getContext('2d');
+			    const stockChartApple = new Chart(ctxApple, {
+			        type: 'line',
+			        data: {
+			            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May'],
+			            datasets: [{
+			                label: 'Apple Inc. Stock Price',
+			                data: [145, 150, 155, 160, 165],
+			                borderColor: 'rgba(75, 192, 192, 1)',
+			                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+			                fill: true
+			            }]
+			        },
+			        options: {
+			            responsive: true,
+			            scales: {
+			                x: {
+			                    beginAtZero: true
+			                }
+			            }
+			        }
+			    });
+			 
+			    // Example of adding more dynamic content
+			    const recentTransactions = [
+			        { date: '2024-08-01', action: 'Buy', stock: 'Apple Inc.', amount: '$1450' },
+			        { date: '2024-08-15', action: 'Sell', stock: 'Tesla Inc.', amount: '$3600' }
+			    ];
+			 
+			    const transactionsList = document.getElementById('transactions');
+			    recentTransactions.forEach(transaction => {
+			        const listItem = document.createElement('li');
+			        listItem.textContent = `${transaction.date} - ${transaction.action} ${transaction.stock} for ${transaction.amount}`;
+			        transactionsList.appendChild(listItem);
+			    });
+			});
+			 
+			 
+			// Code for changing the name using edit button
+			 
+			document.addEventListener('DOMContentLoaded', () => {
+			    const imageButton = document.getElementById('imageButton');
+			    const fileInput = document.getElementById('fileInput');
+			    const profileImage = document.getElementById('profileImage');
+			 
+			    // Handle profile picture upload
+			    imageButton.addEventListener('click', () => {
+			        fileInput.click();
+			    });
+			 
+			    fileInput.addEventListener('change', () => {
+			        const file = fileInput.files[0];
+			        if (file) {
+			            const reader = new FileReader();
+			            reader.onload = (event) => {
+			                profileImage.src = event.target.result;
+			            };
+			            reader.readAsDataURL(file);
+			        }
+			    });
+			 
+			    // Function to show edit form and populate with current value
+			    function showEditForm(formId, inputId, displayId) {
+			        const form = document.getElementById(formId);
+			        const input = document.getElementById(inputId);
+			        const display = document.getElementById(displayId);
+			 
+			        input.value = display.textContent;
+			        form.style.display = 'block';
+			        input.focus();
+			    }
+			 
+			    // Function to hide edit form
+			    function hideEditForm(formId) {
+			        const form = document.getElementById(formId);
+			        form.style.display = 'none';
+			    }
+			 
+			    // Function to handle saving changes
+			    function saveChanges(formId, inputId, displayId) {
+			        const input = document.getElementById(inputId);
+			        const display = document.getElementById(displayId);
+			        display.textContent = input.value;
+			        hideEditForm(formId);
+			    }
+			 
+			    // Handle edit and save for username
+			    document.getElementById('editUsernameIcon').addEventListener('click', () => {
+			        showEditForm('editUsernameForm', 'usernameInput', 'usernameDisplay');
+			    });
+			 
+			    document.getElementById('saveUsernameButton').addEventListener('click', () => {
+			        saveChanges('editUsernameForm', 'usernameInput', 'usernameDisplay');
+			    });
+			 
+			    document.getElementById('cancelUsernameButton').addEventListener('click', () => {
+			        hideEditForm('editUsernameForm');
+			    });
+			 
+			    document.getElementById('usernameInput').addEventListener('keydown', (e) => {
+			        if (e.key === 'Enter') {
+			            saveChanges('editUsernameForm', 'usernameInput', 'usernameDisplay');
+			        }
+			    });
+				
+				// Add event listeners for firstname
+				document.getElementById('editFirstnameIcon').addEventListener('click', () => {
+				    showEditForm('editFirstnameForm', 'firstnameInput', 'firstnameDisplay');
+				});
+				document.getElementById('saveFirstnameButton').addEventListener('click', () => {
+				    saveChanges('editFirstnameForm', 'firstnameInput', 'firstnameDisplay');
+				});
+				document.getElementById('cancelFirstnameButton').addEventListener('click', () => {
+				    hideEditForm('editFirstnameForm');
+				});
+				document.getElementById('firstnameInput').addEventListener('keydown', (e) => {
+				    if (e.key === 'Enter') {
+				        saveChanges('editFirstnameForm', 'firstnameInput', 'firstnameDisplay');
+				    }
+				});
+				
+				// Add event listeners for lastname
+				document.getElementById('editLastnameIcon').addEventListener('click', () => {
+				    showEditForm('editLastnameForm', 'lastnameInput', 'lastnameDisplay');
+				});
+				document.getElementById('saveLastnameButton').addEventListener('click', () => {
+				    saveChanges('editLastnameForm', 'lastnameInput', 'lastnameDisplay');
+				});
+				document.getElementById('cancelLastnameButton').addEventListener('click', () => {
+				    hideEditForm('editLastnameForm');
+				});
+				document.getElementById('lastnameInput').addEventListener('keydown', (e) => {
+				    if (e.key === 'Enter') {
+				        saveChanges('editLastnameForm', 'lastnameInput', 'lastnameDisplay');
+				    }
+				});
+				
+				// Add event listeners for phone
+				document.getElementById('editPhoneIcon').addEventListener('click', () => {
+				    showEditForm('editPhoneForm', 'phoneInput', 'phoneDisplay');
+				});
+				document.getElementById('savePhoneButton').addEventListener('click', () => {
+				    saveChanges('editPhoneForm', 'phoneInput', 'phoneDisplay');
+				});
+				document.getElementById('cancelPhoneButton').addEventListener('click', () => {
+				    hideEditForm('editPhoneForm');
+				});
+				document.getElementById('phoneInput').addEventListener('keydown', (e) => {
+				    if (e.key === 'Enter') {
+				        saveChanges('editPhoneForm', 'phoneInput', 'phoneDisplay');
+				    }
+				});
+				
+				// Add event listeners for email
+				document.getElementById('editEmailIcon').addEventListener('click', () => {
+				    showEditForm('editEmailForm', 'emailInput', 'emailDisplay');
+				});
+				document.getElementById('saveEmailButton').addEventListener('click', () => {
+				    saveChanges('editEmailForm', 'emailInput', 'emailDisplay');
+				});
+				document.getElementById('cancelEmailButton').addEventListener('click', () => {
+				    hideEditForm('editEmailForm');
+				});
+				document.getElementById('emailInput').addEventListener('keydown', (e) => {
+				    if (e.key === 'Enter') {
+				        saveChanges('editEmailForm', 'emailInput', 'emailDisplay');
+				    }
+				});
+				
+			});
+			 
+			
+		
+		
+		
+</script>		
+
+	</body>
+	</html>

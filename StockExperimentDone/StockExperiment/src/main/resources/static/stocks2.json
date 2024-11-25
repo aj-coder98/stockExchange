@@ -1,0 +1,162 @@
+[
+    {
+        "name": "Apple Inc.",
+        "curPrice": 275.30,
+        "totalShares": 100,
+        "yesPrice": 172.50,
+        "stockDesc": "Technology company known for iPhones, iPads, and Mac computers.",
+        "volume": 75300000
+    },
+    {
+        "name": "Microsoft Corp.",
+        "curPrice": 249.67,
+        "totalShares": 100,
+        "yesPrice": 345.00,
+        "stockDesc": "Technology company known for Windows, Office Suite, and cloud services.",
+        "volume": 21250000
+    },
+    {
+        "name": "Amazon.com, Inc.",
+        "curPrice": 3234.19,
+        "totalShares": 100,
+        "yesPrice": 3298.00,
+        "stockDesc": "E-commerce and cloud computing giant.",
+        "volume": 12200000
+    },
+    {
+        "name": "Google LLC",
+        "curPrice": 3790.40,
+        "totalShares": 100,
+        "yesPrice": 2755.00,
+        "stockDesc": "Search engine and technology company known for its advertising platform.",
+        "volume": 18900000
+    },
+    {
+        "name": "Tesla Inc.",
+        "curPrice": 745.40,
+        "totalShares": 100,
+        "yesPrice": 735.00,
+        "stockDesc": "Electric vehicle and clean energy company.",
+        "volume": 9500000
+    },
+    {
+        "name": "Meta Platforms, Inc.",
+        "curPrice": 326.81,
+        "totalShares": 100,
+        "yesPrice": 300.00,
+        "stockDesc": "Social media and technology company, formerly known as Facebook.",
+        "volume": 32000000
+    },
+    {
+        "name": "NVIDIA Corporation",
+        "curPrice": 450.22,
+        "totalShares": 100,
+        "yesPrice": 440.00,
+        "stockDesc": "Graphics processing unit (GPU) manufacturer.",
+        "volume": 27000000
+    },
+    {
+        "name": "Berkshire Hathaway Inc.",
+        "curPrice": 301792.00,
+        "totalShares": 100,
+        "yesPrice": 300000.00,
+        "stockDesc": "Conglomerate holding company led by Warren Buffett.",
+        "volume": 500000
+    },
+    {
+        "name": "Visa Inc.",
+        "curPrice": 240.70,
+        "totalShares": 100,
+        "yesPrice": 235.00,
+        "stockDesc": "Global payments technology company.",
+        "volume": 14000000
+    },
+    {
+        "name": "Johnson & Johnson",
+        "curPrice": 263.12,
+        "totalShares": 100,
+        "yesPrice": 160.00,
+        "stockDesc": "Pharmaceutical and consumer goods company.",
+        "volume": 22000000
+    },
+    {
+        "name": "Procter & Gamble Co.",
+        "curPrice": 353.29,
+        "totalShares": 100,
+        "yesPrice": 150.00,
+        "stockDesc": "Consumer goods corporation known for its health and hygiene products.",
+        "volume": 25000000
+    },
+    {
+        "name": "JPMorgan Chase & Co.",
+        "curPrice": 156.11,
+        "totalShares": 100,
+        "yesPrice": 157.00,
+        "stockDesc": "Major American financial services company.",
+        "volume": 18000000
+    },
+    {
+        "name": "Walmart Inc.",
+        "curPrice": 122.31,
+        "totalShares": 100,
+        "yesPrice": 150.00,
+        "stockDesc": "Retail corporation with global operations.",
+        "volume": 21000000
+    },
+    {
+        "name": "The Home Depot, Inc.",
+        "curPrice": 328.70,
+        "totalShares": 100,
+        "yesPrice": 320.00,
+        "stockDesc": "Retail company specializing in home improvement and construction products.",
+        "volume": 14000000
+    },
+    {
+        "name": "UnitedHealth Group Incorporated",
+        "curPrice": 596.29,
+        "totalShares": 100,
+        "yesPrice": 490.00,
+        "stockDesc": "Healthcare and insurance company.",
+        "volume": 11000000
+    },
+    {
+        "name": "Mastercard Incorporated",
+        "curPrice": 425.56,
+        "totalShares": 100,
+        "yesPrice": 410.00,
+        "stockDesc": "Financial services corporation specializing in payment processing.",
+        "volume": 13000000
+    },
+    {
+        "name": "Coca-Cola Company",
+        "curPrice": 164.95,
+        "totalShares": 100,
+        "yesPrice": 63.00,
+        "stockDesc": "Global beverage corporation known for its soft drinks.",
+        "volume": 35000000
+    },
+    {
+        "name": "PepsiCo, Inc.",
+        "curPrice": 191.44,
+        "totalShares": 100,
+        "yesPrice": 190.00,
+        "stockDesc": "Food and beverage company known for its snack and drink products.",
+        "volume": 22000000
+    },
+    {
+        "name": "Intel Corporation",
+        "curPrice": 57.24,
+        "totalShares": 100,
+        "yesPrice": 36.00,
+        "stockDesc": "Semiconductor manufacturer.",
+        "volume": 60000000
+    },
+    {
+        "name": "IBM Corporation",
+        "curPrice": 123.22,
+        "totalShares": 100,
+        "yesPrice": 150.00,
+        "stockDesc": "Information technology company specializing in hardware and software.",
+        "volume": 12000000
+    }
+]

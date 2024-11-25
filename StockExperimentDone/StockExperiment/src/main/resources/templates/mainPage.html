@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dalal Bazaar</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            color: #f1f1f1;
+            background: linear-gradient(135deg, #003366, #0d0f12, #ffffff); /* Blue, black, and white gradient */
+        }
+ 
+        header {
+            background: linear-gradient(to right, #003366, #0d0f12); /* Dark gradient for header */
+            color: #ffffff; /* Light text on dark gradient */
+            padding: 20px 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+            position: relative;
+            overflow: hidden;
+        }
+ 
+        header .container {
+            width: 60%; /* Reduced width for a more compact look */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: row; /* Side by side */
+            text-align: center;
+        }
+ 
+        .logo {
+            height: 60px;
+            margin-right: 20px; /* Space between logo and name */
+        }
+ 
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            color: #ffffff; /* White color for header name */
+        }
+ 
+        main {
+            padding: 20px;
+        }
+ 
+        /* Slideshow */
+        .slideshow {
+            position: relative;
+            max-width: 1200px;
+            margin: 0 auto;
+            overflow: hidden; /* Hide overflowing content */
+        }
+ 
+        .slideshow-container {
+            position: relative;
+            width: 100%;
+        }
+ 
+        .slide {
+            display: none;
+            position: absolute;
+            width: 100%;
+            transition: opacity 1s ease-in-out; /* Smooth transition for fade effect */
+            opacity: 0;
+        }
+ 
+        .slide.active {
+            opacity: 1; /* Make the active slide fully visible */
+        }
+ 
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+ 
+        .prev,
+        .next {
+            cursor: pointer;
+            position: absolute;
+            top: 50%;
+            width: auto;
+            padding: 16px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 24px;
+            transition: background-color 0.3s ease;
+            border-radius: 50%;
+            user-select: none;
+            background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+        }
+ 
+        .prev {
+            left: 10px;
+        }
+ 
+        .next {
+            right: 10px;
+        }
+ 
+        .slide-text {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: #ffffff;
+            font-size: 1.5em;
+            background: linear-gradient(45deg, #000000, #333333); /* Dark metallic gradient */
+            padding: 10px 20px;
+            border-radius: 5px;
+            animation: fadeInUp 1s ease-in-out; /* Animation for text overlay */
+        }
+ 
+        .cta-section {
+            background-color: #1e1e1e;
+            padding: 50px 20px;
+            text-align: center;
+            margin-top: 30px;
+            color: #ffffff;
+            border-radius: 8px; /* Rounded corners */
+            position: relative;
+            overflow: hidden; /* Ensure no overflow */
+        }
+ 
+        .cta-section h2 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            color: transparent; /* Make text transparent for gradient */
+            background: linear-gradient(135deg, #c0c0c0, #ffffff); /* Metallic gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textFadeIn 2s ease-in-out; /* Animation for call-to-action heading */
+        }
+ 
+        .cta-section p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: transparent; /* Make text transparent for gradient */
+            background: linear-gradient(135deg, #c0c0c0, #ffffff); /* Metallic gradient */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: textFadeIn 2s ease-in-out; /* Animation for call-to-action paragraph */
+        }
+ 
+        .cta-section button {
+            background: linear-gradient(135deg, #0059b3, #003366); /* Blue gradient button color */
+            border: none;
+            color: #ffffff; /* White text on button */
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+ 
+        .cta-section button:hover {
+            background: linear-gradient(135deg, #003366, #0059b3); /* Darker blue gradient on hover */
+            transform: scale(1.05); /* Slightly enlarge button */
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+        }
+ 
+        footer {
+            background: linear-gradient(to right, #003366, #0d0f12); /* Dark gradient for footer */
+            color: #ffffff;
+            text-align: center;
+            padding: 20px 0;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for footer */
+        }
+ 
+        footer .container {
+            width: 60%; /* Reduced width for consistency */
+            margin: 0 auto;
+        }
+ 
+        /* Animations */
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+ 
+        @keyframes textFadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <img src="/logo.png" alt="Stock Exchange Logo" class="logo">
+            <h1>Dalal Bazaar</h1>
+        </div>
+    </header>
+ 
+    <main>
+        <section class="slideshow">
+            <div class="slideshow-container">
+                <div class="slide active" id="slide1">
+                    <img src="/image1.jpg" alt="Image 1">
+                    <div class="slide-text">
+                        <h2>Invest Smart, Live Better</h2>
+                        <p>Grow your wealth with Dalal Bazaar. Your trusted partner in the world of finance.</p>
+                    </div>
+                </div>
+                <div class="slide" id="slide2">
+                    <img src="/image2.jpg" alt="Image 2">
+                    <div class="slide-text">
+                        <h2>The Future is Bright, Invest in It</h2>
+                        <p>Dalal Bazaar: Your gateway to a secure and profitable future. Start investing today!</p>
+                    </div>
+                </div>
+                <div class="slide" id="slide3">
+                    <img src="/image3.jpg" alt="Image 3">
+                    <div class="slide-text">
+                        <h2>Investing: Not Just for the Rich</h2>
+                        <p>Everyone can be an investor! Dalal Bazaar empowers you to take control of your finances.</p>
+                    </div>
+                </div>
+                <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+                <a class="next" onclick="plusSlides(1)">&#10095;</a>
+            </div>
+        </section>
+ 
+        <section class="cta-section">
+            <h2>Ready to Take Charge of Your Financial Future?</h2>
+            <p>Dalal Bazaar offers a user-friendly platform to buy, sell, and track stocks with ease. Invest in yourself, invest in your future!</p>
+			<form action="/login" method="get">
+			    <button type="submit">	Get Started Today</button>
+			</form>
+        </section>
+    </main>
+ 
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Dalal Bazaar. All rights reserved.</p>
+        </div>
+    </footer>
+	<script>
+	    let slideIndex = 1;
+	    showSlides(slideIndex);
+	
+	    function plusSlides(n) {
+	        showSlides(slideIndex += n);
+	    }
+	
+	    function currentSlide(n) {
+	        showSlides(slideIndex = n);
+	    }
+	
+	    function showSlides(n) {
+	        let i;
+	        let slides = document.getElementsByClassName("slide");
+	        if (n > slides.length) { slideIndex = 1 }
+	        if (n < 1) { slideIndex = slides.length }
+	        for (i = 0; i < slides.length; i++) {
+	            slides[i].style.display = "none";
+	            slides[i].classList.remove('active');
+	        }
+	        slides[slideIndex - 1].style.display = "block";
+	        slides[slideIndex - 1].classList.add('active');
+	    }
+	
+	    // Optional: Automatic slideshow
+	    setInterval(function () {
+	        plusSlides(1);
+	    }, 5000); // Change image every 5 seconds
+	</script>
+</body>
+</html>

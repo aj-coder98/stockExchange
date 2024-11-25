@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+	
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Cards</title>
+    <!--<link rel="stylesheet" href="dashboard.css">-->
+	<style>
+		/* Reset some default styles */
+		body, h1, h2, p {
+		    margin: 0;
+		    padding: 0;
+		    box-sizing: border-box;
+		}
+		
+		/* Basic styling for body and wrapper */
+		html, body {
+		    height: 100%;
+		}
+		
+		body {
+		    font-family: Arial, sans-serif;
+		    line-height: 1.6;
+		}
+		
+		.wrapper {
+		    min-height: 100vh;
+		    display: flex;
+		    flex-direction: column;
+		}
+		
+		/* Navbar styling */
+		.navbar {
+		    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+		    color: white;
+		    padding: 1rem;
+		    display: flex;
+		    position: fixed; /* Set the navbar to fixed position */
+		    top: 0; /* Position the navbar at the top of the page */
+		    width: 100%;
+		    align-items: center;
+		    border-bottom: 1px solid #ddd;
+		    z-index: 1000; /* Ensure the navbar stays on top */
+		    box-sizing: border-box; /* Ensure padding and border are included in the width */
+		}
+		
+		/* Navbar brand styling */
+		.navbar-brand {
+		    flex: 1; /* Take up available space to push other items to the right */
+		}
+		
+		/* Adjust h2 size and alignment */
+		.navbar-user {
+		    margin-right: 1rem; /* Space between user greeting and dropdown */
+		}
+		
+		.navbar-user h2 {
+		    font-size: 1rem; /* Decrease size of h2 in the navbar */
+		}
+		
+		/* Dropdown menu styles */
+		.navbar-dropdown {
+		    position: relative;
+		}
+		
+		.dropdown-btn {
+		    background: white;
+		    color: black;
+		    border: none;
+		    padding: 0.5rem 1rem;
+		    font-size: 0.875rem;
+		    cursor: pointer;
+		    border-radius: 4px;
+		    transition: background 0.3s;
+		}
+		
+		.dropdown-btn:hover {
+		    background: #555;
+		}
+		
+		.dropdown-content {
+		    display: none;
+		    position: absolute;
+		    top: 100%;
+		    right: 0;
+		    background: #fff;
+		    border: 1px solid #ddd;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		    border-radius: 4px;
+		    z-index: 1000;
+		}
+		
+		.dropdown-content a {
+		    display: block;
+		    padding: 0.5rem 1rem;
+		    color: #333;
+		    text-decoration: none;
+		    font-size: 0.875rem;
+		}
+		
+		.dropdown-content a:hover {
+		    background: #f4f4f4;
+		}
+		
+		/* Show dropdown on hover */
+		.navbar-dropdown:hover .dropdown-content {
+		    display: block;
+		}
+		
+		/* Main content styling */
+		main {
+		    flex: 1;
+		    display: flex;
+		    padding: 2rem;
+		    padding-top: 5rem; /* Add padding to account for the fixed navbar */
+		    box-sizing: border-box; /* Ensure padding is included in the width */
+		}
+		
+		.left-section {
+		    flex: 2; /* Takes up twice as much space as the right section */
+		    padding-right: 1rem; /* Space between left and right sections */
+		}
+		
+		.right-section {
+		    flex: 0.8; /* Takes up one-third of the space */
+		    background: #f4f4f4;
+		    border: 1px solid #ddd;
+		    border-radius: 8px;
+		    padding: 1rem;
+		    height: 300px;
+		    box-sizing: border-box; /* Ensure padding and border are included in the width */
+		}
+		
+		.cards-container {
+		    display: flex;
+		    flex-wrap: wrap;
+		    gap: 1rem; /* Reduced gap between cards */
+		}
+		
+		.card {
+		    background: #f4f4f4;
+		    border: 1px solid #ddd;
+		    border-radius: 8px;
+		    padding: 1rem;
+		    text-align: center;
+		    width: 200px;
+		    height: 200px;
+		    transition: transform 0.3s ease, box-shadow 0.3s ease;
+		    box-sizing: border-box; /* Ensure padding and border are included in the width */
+		}
+		
+		.card:hover {
+		    transform: translateY(-10px);
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+/*		
+        .card form {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }			
+*/
+        .card button {
+            display: none; /* Hide the actual button */
+        }
+		
+		/* Footer styling */
+		footer {
+		    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+		    color: white;
+		    padding: 1rem;
+		    text-align: center;
+		}
+		
+		header {
+		    background: linear-gradient(to right, #003366, #0d0f12); /* Dark gradient for header */
+		    color: #ffffff; /* Light text on dark gradient */
+		    padding: 20px 0;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		header .container-navbar {
+		    width: 80%; /* Adjust width for alignment */
+		    margin: 0 auto;
+		    display: flex;
+		    align-items: left;
+		    justify-content: space-between; /* Distribute space between elements */
+		    text-align: left; /* Align text to the left */
+		}
+		
+		.logo-navbar {
+		    height: 60px;
+			margin-left: 30px;
+		    margin-right: 20px; /* Space between logo and heading */
+		}
+		
+		.heading-navbar {
+		    font-size: 2.5em;
+		    margin: 0;
+		    color: #ffffff; /* White color for header name */
+			flex: 1;
+		}
+		
+		/* Header right section */
+		.header-right-navbar {
+		    display: flex;
+		    align-items: center;
+			margin-right: 30px; /* Space from the right edge */
+			position: relative;
+			left: 90px;
+		}
+		
+		.header-left-navbar {
+			cursor: pointer;
+		    display: flex;
+		    align-items: center;
+			position: relative;
+			left: -90px;
+		}
+		
+		.welcome-message-navbar {
+		    margin-right: 20px;
+		    font-size: 1.2em;
+		}
+		
+		.transparent-button-navbar {
+		    background: transparent;
+		    border: 1px solid #ffffff;
+		    color: #ffffff;
+		    padding: 10px 20px;
+		    margin-left: 10px;
+		    cursor: pointer;
+		    font-size: 1em;
+		    border-radius: 5px;
+		}
+		
+		.transparent-button-navbar:hover {
+		    background: rgba(255, 255, 255, 0.2);
+		}
+		
+		.positive-change {
+		    color: #27ae60;
+		}
+		
+		.negative-change {
+		    color: #e74c3c;
+		}
+
+	</style>
+</head>
+<body>
+    <div class="wrapper">
+    <!--    <nav class="navbar">
+            <div class="navbar-brand">
+                <h1>CAMS 2.0</h1>
+            </div>
+            <div class="navbar-user">
+                <h2 th:text="'Welcome, ' + ${user.username}">Welcome, AJ</h2>
+            </div>
+            <div class="navbar-dropdown">
+                <button class="dropdown-btn">Menu</button>
+                <div class="dropdown-content">
+					<a href="#" th:href="@{/userProfile(userId=${user.userId})}">Profile View</a>
+                    <a href="#">Profile</a>
+                    <a href="#">Settings</a>
+                    <a href="#">Logout</a>
+                </div>
+            </div>
+        </nav>-->
+		
+		<header>
+			<div class="container-navbar">
+				<div class="header-left-navbar" th:onClick="openDashboard([[${user.userId}]])">
+				    <img src="/logo.png" alt="Stock Exchange Logo" class="logo-navbar">
+				    <h1 class="heading-navbar">Dalal Bazaar</h1>
+				</div>
+				<div class="header-right-navbar">
+			        <span class="welcome-message-navbar">Hello, <span id="username-navbar" th:text="${user.username} + '!'">User</span></span>
+			        <button class="transparent-button-navbar" th:onclick="openProfile([[${user.userId}]])" id="userProfileButton-navbar">Profile</button>
+			        <button class="transparent-button-navbar" th:onclick="logout()" id="logoutButton-navbar">Logout</button>
+			    </div>
+			</div>
+		</header>
+        <main>
+            <div class="left-section">
+                <section class="cards-container">
+					<div th:each="stock : ${stocks}" class="card" 
+					    th:onclick="submitCardData([[${user.userId}]], [[${stock.stockId}]])">
+					   <h2 th:text="${stock.name}">Stock Name</h2>
+					   <p th:text="'$' + ${#numbers.formatDecimal(stock.curPrice, 1, 'COMMA', 2, 'POINT')}">Stock Price</p>
+					   <p th:class="${stock.curPrice - stock.yesPrice > 0 ? 'positive-change' : 'negative-change'}" 
+						th:text="'Change: ($' + ${stock.curPrice > stock.yesPrice ? #numbers.formatDecimal(stock.curPrice - stock.yesPrice, 1, 'COMMA', 2, 'POINT') + ')' : #numbers.formatDecimal(stock.yesPrice - stock.curPrice, 1, 'COMMA', 2, 'POINT') + ')'}">Change</p>
+					</div>
+                </section>
+				
+            </div>
+            <div class="right-section">
+                <section class="details">
+                    <h2>Investment Summary</h2>
+                    <p><strong>Invested Value:</strong> <span th:text="'$' + ${#numbers.formatDecimal(invValue, 1, 'COMMA', 2, 'POINT')}">$15,000.00</span></p>
+                    <p><strong>Current Value:</strong> <span th:text="'$' + ${#numbers.formatDecimal(curValue, 1, 'COMMA', 2, 'POINT')}">$16,200.00</span></p>
+                    <p th:class="${curValue - invValue > 0 ? 'positive-change' : 'negative-change'}" ><strong>Change:</strong> <span th:text="'$' + ${#numbers.formatDecimal(curValue - invValue, 1, 'COMMA', 2, 'POINT')}">$1,200.00</span></p>
+                    <!-- Add more details as needed -->
+                </section>
+            </div>
+        </main>
+        
+		
+		<footer>
+		       <p>&copy; 2024 Dalal Bazaar. All rights reserved.</p>
+		</footer>
+    </div>
+	
+	<script>
+	        function submitCardData(userId, stockId) {
+				window.location.href = `/stockInfo?userId=${userId}&stockId=${stockId}`;
+	        }
+			function openProfile(userId) {
+				window.location.href = `/userProfile?userId=${userId}`;
+	        }
+			
+			function openDashboard(userId) {
+				window.location.href = `/dashboard?userId=${userId}`;
+			}
+			function logout() {
+				window.location.href = `/logout`;
+	        }
+			
+	</script>
+</body>
+</html>

@@ -1,0 +1,155 @@
+/* Reset some default styles */
+body, h1, h2, p {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Basic styling for body and wrapper */
+html, body {
+    height: 100%;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+}
+
+.wrapper {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Navbar styling */
+.navbar {
+    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+    color: white;
+    padding: 1rem;
+    display: flex;
+    position: fixed; /* Set the navbar to fixed position */
+    top: 0; /* Position the navbar at the top of the page */
+    width: 100%;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    z-index: 1000; /* Ensure the navbar stays on top */
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+/* Navbar brand styling */
+.navbar-brand {
+    flex: 1; /* Take up available space to push other items to the right */
+}
+
+/* Adjust h2 size and alignment */
+.navbar-user {
+    margin-right: 1rem; /* Space between user greeting and dropdown */
+}
+
+.navbar-user h2 {
+    font-size: 1rem; /* Decrease size of h2 in the navbar */
+}
+
+/* Dropdown menu styles */
+.navbar-dropdown {
+    position: relative;
+}
+
+.dropdown-btn {
+    background: white;
+    color: black;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background 0.3s;
+}
+
+.dropdown-btn:hover {
+    background: #555;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    z-index: 1000;
+}
+
+.dropdown-content a {
+    display: block;
+    padding: 0.5rem 1rem;
+    color: #333;
+    text-decoration: none;
+    font-size: 0.875rem;
+}
+
+.dropdown-content a:hover {
+    background: #f4f4f4;
+}
+
+/* Show dropdown on hover */
+.navbar-dropdown:hover .dropdown-content {
+    display: block;
+}
+
+/* Main content styling */
+main {
+    flex: 1;
+    display: flex;
+    padding: 2rem;
+    padding-top: 5rem; /* Add padding to account for the fixed navbar */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+.left-section {
+    flex: 2; /* Takes up twice as much space as the right section */
+    padding-right: 1rem; /* Space between left and right sections */
+}
+
+.right-section {
+    flex: 0.8; /* Takes up one-third of the space */
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    height: 300px;
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.cards-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem; /* Reduced gap between cards */
+}
+
+.card {
+    background: #f4f4f4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    width: 200px;
+    height: 200px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-sizing: border-box; /* Ensure padding and border are included in the width */
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer styling */
+footer {
+    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+}

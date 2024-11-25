@@ -1,0 +1,530 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Information</title>
+    <!-- <link rel="stylesheet" href="styles.css">
+    <script src="stock.js" defer></script> -->
+    <style>
+        /* styles.css */
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background-color: #f3f4f6;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            color: #333;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        .navbar {
+            width: 100%;
+            background-color: #2c3e50;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .nav-left {
+            padding-left: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-left h2 {
+            margin-right: 20px;
+            font-size: 1.5rem;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropbtn {
+            background-color: #2c3e50;
+            color: white;
+            padding: 10px 15px;
+            font-size: 16px;
+            border: none;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .dropbtn:hover {
+            background-color: #34495e;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border-radius: 8px;
+            transition: background-color 0.3s;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .nav-right {
+            padding-right: 20px;
+            display: flex;
+            align-items: center;
+        }
+
+        #stock-search {
+            padding: 8px 12px;
+            margin-right: 10px;
+            border-radius: 8px;
+            border: 1px solid #bdc3c7;
+            font-size: 16px;
+        }
+
+        .search-btn {
+            background-color: #2980b9;
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s;
+        }
+
+        .search-btn:hover {
+            background-color: #1f639e;
+        }
+
+        .user-profile {
+            display: flex;
+            align-items: center;
+            margin-left: 20px;
+        }
+
+        .user-profile img {
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .user-profile span {
+            font-size: 16px;
+            color: #ecf0f1;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+			margin-bottom: 20px;
+            transition: transform 0.2s;
+			position: relative;
+			left: 200px;
+        }
+
+        /* .container:hover {
+            transform: scale(1.02);
+        } */
+
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-size: 2.5rem;
+            font-weight: 600;
+        }
+
+        .stock-info, .company-info, .overview, .news, .chart {
+            margin-bottom: 25px;
+            padding: 20px;
+            border-radius: 10px;
+            background-color: #ecf0f1;
+            border: 1px solid #bdc3c7;
+        }
+
+        .stock-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 15px;
+        }
+
+        #ticker {
+            font-size: 2rem;
+            color: #2980b9;
+        }
+
+        #price {
+            font-size: 1.25rem;
+            color: #16a085;
+        }
+
+        #change {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .positive-change {
+            color: #27ae60;
+        }
+
+        .negative-change {
+            color: #e74c3c;
+        }
+
+        .buttons {
+            margin: 15px 0;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .buttons button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            background-color: #2980b9;
+            color: white;
+        }
+
+        .buttons button:hover {
+            transform: scale(1.05);
+            background-color: #1f639e;
+        }
+
+        .trade-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .buy, .sell {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s, transform 0.2s;
+            width: 48%;
+        }
+
+        .buy {
+            background-color: #27ae60;
+            color: white;
+        }
+
+        .sell {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .buy:hover {
+            transform: scale(1.02);
+            background-color: #229954;
+        }
+
+        .sell:hover {
+            transform: scale(1.02);
+            background-color: #c0392b;
+        }
+
+        input[type="number"] {
+            padding: 10px;
+            margin-top: 10px;
+            border: 1px solid #bdc3c7;
+            border-radius: 8px;
+            width: 100%;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+
+        .error {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        #chart-container {
+            height: 300px;
+            background-color: #ffffff;
+            border: 1px solid #bdc3c7;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #7f8c8d;
+            transition: background-color 0.3s, box-shadow 0.3s;
+        }
+
+        #chart-container:hover {
+            background-color: #ecf0f1;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        #chart-container::before {
+            content: 'Chart will be displayed here';
+            font-style: italic;
+            color: #7f8c8d;
+        }
+
+        .news ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .news li {
+            margin-bottom: 10px;
+        }
+
+        .news a {
+            color: #2980b9;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        .news a:hover {
+            color: #1f639e;
+        }
+		
+		/* Footer styling */
+		footer {
+		    background: -webkit-linear-gradient(left, #003366, #0d0f12, #0059b3);
+		    color: white;
+		    padding: 1rem;
+		    text-align: center;
+		}
+		
+		header {
+		    background: linear-gradient(to right, #003366, #0d0f12); /* Dark gradient for header */
+		    color: #ffffff; /* Light text on dark gradient */
+		    padding: 20px 0;
+		    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Subtle shadow for depth */
+		    position: relative;
+		    overflow: hidden;
+		}
+		
+		header .container-navbar {
+		    width: 80%; /* Adjust width for alignment */
+		    margin: 0 auto;
+		    display: flex;
+		    align-items: left;
+		    justify-content: space-between; /* Distribute space between elements */
+		    text-align: left; /* Align text to the left */
+		}
+		
+		.logo-navbar {
+		    height: 60px;
+			margin-left: 30px;
+		    margin-right: 20px; /* Space between logo and heading */
+		}
+		
+		.heading-navbar {
+		    font-size: 2.5em;
+		    margin: 0;
+		    color: #ffffff; /* White color for header name */
+			flex: 1;
+		}
+		
+		/* Header right section */
+		.header-right-navbar {
+		    display: flex;
+		    align-items: center;
+			margin-right: 30px; /* Space from the right edge */
+			position: relative;
+			left: 90px;
+		}
+		
+		.header-left-navbar {
+			cursor: pointer;
+		    display: flex;
+		    align-items: center;
+			position: relative;
+			left: -90px;
+		}
+		
+		.welcome-message-navbar {
+		    margin-right: 20px;
+		    font-size: 1.2em;
+		}
+		
+		.transparent-button-navbar {
+		    background: transparent;
+		    border: 1px solid #ffffff;
+		    color: #ffffff;
+		    padding: 10px 20px;
+		    margin-left: 10px;
+		    cursor: pointer;
+		    font-size: 1em;
+		    border-radius: 5px;
+		}
+		
+		.transparent-button-navbar:hover {
+		    background: rgba(255, 255, 255, 0.2);
+		}
+		
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar 
+    <nav class="navbar">
+        <div class="nav-left">
+            <h2>CAMS Stock Exchange</h2>
+            <div class="dropdown">
+                <button class="dropbtn" aria-label="Sections">Sections</button>
+                <div class="dropdown-content">
+                    <a href="#">Market Overview</a>
+                    <a href="#">Top Gainers</a>
+                    <a href="#">Top Losers</a>
+                    <a href="#">Portfolio</a>
+                </div>
+            </div>
+        </div>
+        <div class="nav-right">
+            <input type="text" placeholder="Search stocks..." id="stock-search" aria-label="Search stocks">
+            <button class="search-btn" onclick="searchStock()" aria-label="Search">Search</button>
+            <div class="user-profile">
+                <img src="user-avatar.png" alt="User Profile">
+                <span>Welcome!</span>
+            </div>
+        </div>
+    </nav>
+	-->
+	<header>
+		<div class="container-navbar">
+			<div class="header-left-navbar"	th:onClick="openDashboard([[${userId}]])">
+			    <img src="/logo.png" alt="Stock Exchange Logo" class="logo-navbar">
+			    <h1 class="heading-navbar">Dalal Bazaar</h1>
+			</div>
+			<div class="header-right-navbar">
+		        <span class="welcome-message-navbar">Hello, <span id="username-navbar" th:text="${username} + '!'">User</span></span>
+		        <button class="transparent-button-navbar" th:onclick="openProfile([[${userId}]])" id="userProfileButton-navbar">Profile</button>
+		        <button class="transparent-button-navbar" th:onclick="logout()" id="logoutButton-navbar">Logout</button>
+		    </div>
+		</div>
+	</header>
+    
+	
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1>Stock Dashboard</h1>
+        
+        <div class="stock-info">
+			<div class="stock-header">
+			    <h2 id="ticker" th:text="${stockName}">Stock Name</h2>
+			    <p id="price" th:text="'Price: $' + ${#numbers.formatDecimal(stockPrice, 1, 'COMMA', 2, 'POINT')}">Price: $150.00</p>
+			    <!-- You can calculate the change if required -->
+			    <p id="change" th:class="${stockPrice - yesPrice > 0 ? 'positive-change' : 'negative-change'}" th:text="'Change: $' + ${#numbers.formatDecimal(change, 1, 'COMMA', 2, 'POINT')}">Change: +$0.00</p>
+			</div>
+        </div>
+
+        <div class="company-info">
+            <p id="description" th:text="${stockDesc}">Apple Inc. is an American multinational technology company...</p>
+            <input type="number" id="quantity" placeholder="Enter quantity" min="1" aria-label="Enter quantity">
+            <div class="trade-buttons">
+                <button class="buy" th:onclick="buyStock([[${userId}]], [[${stockId}]],
+				 [[${stockHolding}]], [[${totalShares}]], [[${pendingBuy}]], [[${pendingSell}]])" aria-label="Buy">Buy</button>
+                <button class="sell" th:onclick="sellStock([[${userId}]], [[${stockId}]],
+				 [[${stockHolding}]], [[${totalShares}]], [[${pendingBuy}]], [[${pendingSell}]])" aria-label="Sell">Sell</button>
+            </div>
+            <p id="owned-stocks">You own: <span id="stock-count" th:text="${stockHolding}">10</span> shares</p>
+            <p id="error-message" class="error"></p>
+        </div>
+	</div>
+	<footer>
+	      <p>&copy; 2024 Dalal Bazaar. All rights reserved.</p>
+	</footer>
+    <script>	
+		
+		function openProfile(userId) {
+			window.location.href = `/userProfile?userId=${userId}`;
+		}
+		
+		function logout() {
+			window.location.href = `/logout`;
+		}
+		
+		function openDashboard(userId) {
+			window.location.href = `/dashboard?userId=${userId}`;
+		}
+		
+		function buyStock(userId, stockId, ownedStocks, totalShares, pendingBuy, pendingSell) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+            const availableShares =totalShares - pendingBuy;
+
+			if (pendingSell != 0) {
+				document.getElementById('error-message').innerText = 'You already have sell requests of this stock.';
+			} else if (quantity > 0 && quantity <= availableShares) {
+                document.getElementById('stock-count').innerText = ownedStocks;
+                document.getElementById('error-message').innerText = '';
+				
+				window.location.href = `/buyStock?userId=${userId}&stockId=${stockId}&shares=${quantity}`;
+            } else if (quantity > availableShares) {
+                document.getElementById('error-message').innerText = 'Transaction unsuccessful: Not enough shares available.';
+            } else {
+                document.getElementById('error-message').innerText = 'Please enter a valid quantity.';
+            }
+        }
+
+        function sellStock(userId, stockId, ownedStocks, totalShares, pendingBuy, pendingSell) {
+            const quantity = parseInt(document.getElementById('quantity').value);
+			
+			if (pendingBuy != 0) {
+				document.getElementById('error-message').innerText = 'You already have buy requests of this stock.';
+			} else if (quantity > ownedStocks - pendingSell) {
+                document.getElementById('error-message').innerText = 'Cannot sell more than owned.';
+            } else if (quantity > 0 && quantity <= ownedStocks - pendingSell) {
+                document.getElementById('stock-count').innerText = ownedStocks;
+                document.getElementById('error-message').innerText = '';
+				
+				window.location.href = `/sellStock?userId=${userId}&stockId=${stockId}&shares=${quantity}`;
+            } else {
+                document.getElementById('error-message').innerText = 'Please enter a valid quantity.';
+            }
+        }
+
+        function searchStock() {
+            const query = document.getElementById('stock-search').value;
+            if (query) {
+                alert(`Searching for ${query}...`);
+                // Implement actual search functionality here
+            } else {
+                alert('Please enter a stock ticker or company name.');
+            }
+        }
+    </script>
+</body>
+</html>
